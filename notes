@@ -1,0 +1,643 @@
+This file contains documentation for all functions in fintemp.
+
+functions by category:
+
+// data
+
+void cmd_bins();
+
+	command-line arguments: (data index) (size of each bin)
+	
+	Breaks a list of numbers into bins, computes the average of each bin, and then computes
+	the average of all bin averages. The error on the average of bin averages is also
+	given.
+	
+	(size of each bin) is the number of numbers in each bin.
+
+void cmd_cnt();
+
+        command-line arguments: (data index) (minimum value) (maximum value)
+	    
+        Gives the number of elements in the list between (minimum value) and (maximum value).
+	
+void cmd_dd();
+
+	command-line arguments: (data index)
+	
+	Frees (data index) from memory.
+
+void cmd_dindex();
+
+	Deletes all entries from the parallel processing list.
+	
+void cmd_disp();
+
+	command-line arguments: (data index) (first element) (last element)
+	
+	Prints the elements in the list between positions (first element) and (last element).
+
+void cmd_dt();
+
+	Deletes all entries from the tag list.
+
+void cmd_flt();
+
+        command-line arguments: (data index) (minimum value) (maximum value)
+
+        Filters data in the tag list.
+	
+void cmd_fltintf();
+
+        command-line arguments: (number of interfaces data index) (offset data index) (y coordinates data index) (output data index) (number of interfaces)
+
+        Filters the interface data.
+
+	The data to filter is the number of interfaces, and (offset data index)
+	gives the positions in the output array (the y coordinates of the interfaces)
+	that correspond with the realizations in the input array.
+	
+void cmd_index();
+
+	command-line arguments: (data index) (size in bytes)
+	
+	Tells all processes in a parallel computation that the data in (data index) is to be
+	transferred to the master process when each calculation is complete.
+	
+	(size in bytes) is the size of each individual process's data index.
+
+void cmd_minmax();
+
+        command-line arguments: (data index)
+
+        Gives the values of the minimum and maximum elements in the list.
+
+void cmd_receive();
+
+	Tells the master process to collect all data from the slaves in a parallel computation.
+	
+void cmd_sd();
+
+	Shows which data indices are free and which are occupied.	
+
+void cmd_send();
+
+	Tells each slave process to send its data to the master in a parallel computation.
+	
+void cmd_tag();
+
+        command-line arguments: (input data index) (output data index)
+	        
+        Tags a data index for a subsequent 'flt' command.
+
+// file
+
+void cmd_load();
+
+	command-line arguments: (data index) (file)
+	
+	Loads (file) into (data index).
+	
+void cmd_loadtext();
+
+	command-line arguments: (data index) (file)
+	
+	Loads the text file (file) into (data index).
+	
+void cmd_save();
+
+	command-line arguments: (data index) (file)
+	
+	Saves (data index) into (file).
+	
+void cmd_savetext();
+
+	command-line arguments: (data index) (file)
+	
+	Saves the data in (data index) in text format to (file).
+	
+void cmd_xy();
+
+	command-line arguments: (x data index) (y data index) (data file name)
+	
+	Saves the data in xy-format in a text data file.
+	
+// list
+
+(values for (list) are 0 (loop list), 1 (step list), or 2 (save list))
+
+void cmd_dl();
+
+	command-line arguments: (list) (list index)
+	
+	Deletes an entry from (list).
+	
+void cmd_sl();
+
+	command-line arguments: (list)
+	
+	Shows all entries in (list).
+
+// loop
+
+void cmd_lp();
+
+	command-line arguments: (loop index) (number of runs) (progress)
+	
+	Runs the simulation (number of runs) times.
+	
+	If `progress' is set to `1', then the progress of the simulation is output to the screen.
+	If `progress' is set to `0', then there are no status messages output to the screen.
+
+void cmd_lpseed();
+
+	command-line arguments: (loop index) (random number generator data index) (data index low) (data index high) (number of elements)
+	
+	Uses the values given by (data_index_high*2^32+data index_low) as random number seeds for future runs.
+	
+void cmd_randinit();
+
+	command-line arguments: (loop index) (parameters data index) (initial magnetization)
+	
+	Loads a random spin configuration into the initial lattice.
+	
+void cmd_randinitL();
+
+	command-line arguments: (loop index) (parameters data index) (initial magnetization)
+	
+	Loads a random spin configuration into the lower boundary.
+
+	(initial magnetization) is the magnetization on the lower boundary.
+	
+void cmd_randinitU();
+
+	command-line arguments: (loop index) (parameters data index) (initial magnetization)
+	
+	Loads a random spin configuration into the upper boundary.
+
+	(initial magnetization) is the magnetization on the upper boundary.
+	
+void cmd_tsc();
+
+	command-line arguments: (loop index) (random number generator data index)
+	
+	Uses the processor's time stamp as the 64-bit random number seed.
+
+// plot
+
+void cmd_anrt();
+
+	command-line arguments: (parameters data index) (flips data index) (energy data index) (time data index) (spin) (beginning time) (ending time) (time between frames) (number of seconds to delay between frames) (time offset) (save frames) (spins data file name) (spins plot file name) (animation data file name) (animation plot file name)
+	
+	Animates the lattice in real time.
+	The spins plot file is run first in Matlab, and then the animation plot file is run.
+	
+	If `save frames' is set to `1', then each frame is saved as a JPEG `000.jpg', `001.jpg',
+	`002.jpg', etc.  The frames can then be combined into an animated GIF.
+	
+	If the simulation was stopped and then run again after using `reset', then it is necessary
+	to set `time offset'.
+
+	If `save frames' is set to `0', then frames are not saved.
+
+void cmd_anstep();
+
+	command-line arguments: (parameters data index) (flips data index) (energy data index) (time data index) (spin) (beginning time) (ending time) (animation data file name) (animation plot file name)
+	
+	Allows the user to manually step through the evolution flip-by-flip.
+	The spins plot file is run first in Matlab, and then the animation plot file is run.
+	
+void cmd_clspins();
+
+	command-line arguments: (parameters data index) (cluster number) (data file name) (plot file name)
+	
+	Plots the spins in the specified cluster.
+	
+void cmd_spins();
+
+	command-line arguments: (parameters data index) (flips data index) (plot steps) (data file name) (plot file name)
+	
+	Plots the spins in the lattice.
+	
+void cmd_spinsfix();
+
+	command-line arguments: (parameters data index) (flips data index) (plot steps) (data file name) (plot file name)
+	
+	Plots the spins in the lattice with fixed boundary conditions in the
+	vertical direction.
+	
+// run
+
+void cmd_rundiag();
+
+	command-line arguments: (parameters data index) (set arrays)
+	
+	Begins evolving the system with periodic boundaries in all directions
+	and second-nearest-neighbor (diagonal) interactions.
+
+	If (set arrays) is set to `1', then the arrays necessary for doing the simulation are initialized.
+	This should be set to `1' if the simulation is beginning.
+
+	If the simulation is stopped and then restarted (using the `reset' command), then this should
+	be set to `0'.
+
+void cmd_runfixper();
+
+	command-line arguments: (parameters data index) (set arrays)
+	
+	Begins evolving the system with fixed boundaries at y=-1 and y=ylen
+	and periodic boundaries at x=-1 and x=xlen.
+
+	If (set arrays) is set to `1', then the arrays necessary for doing the simulation are initialized.
+	This should be set to `1' if the simulation is beginning.
+
+	If the simulation is stopped and then restarted (using the `reset' command), then this should
+	be set to `0'.
+
+void cmd_runperper();
+
+	command-line arguments: (parameters data index) (set arrays)
+	
+	Begins evolving the system with periodic boundaries in all directions.
+
+	If (set arrays) is set to `1', then the arrays necessary for doing the simulation are initialized.
+	This should be set to `1' if the simulation is beginning.
+
+	If the simulation is stopped and then restarted (using the `reset' command), then this should
+	be set to `0'.
+
+// save
+
+void cmd_fbr();
+
+	command-line arguments: (save index) (parameters data index) (number of blinker regions data index) (total blinker volume data index) (number of runs)
+
+	Saves the number of disjoint blinker regions and the total volume of blinker regions at the end of each run.
+
+void cmd_fcl();
+
+	command-line arguments: (save index) (parameters data index) (number of clusters data index) (number of runs)
+	
+	Saves the number of clusters and the maximum genus of all clusters at the end of each run.
+	
+void cmd_fe();
+
+	command-line arguments: (save index) (parameters data index) (final energy data index) (number of runs)
+	
+	Saves the energy at the end of each run.
+	
+void cmd_finalper();
+
+	command-line arguments: (save index) (parameters data index) (final state data index) (number of runs)
+	
+	Saves the type of final state that is reached.
+	
+	0 = dual spanning / no spanning (ground state)
+	1 = horizontal stripe
+	2 = vertical stripe
+	3 = diagonal stripe
+	4 = diagonal stripe that winds twice in either the horizontal or vertical direction
+	5 = other
+
+void cmd_fintf();
+
+	command-line arguments: (save index) (parameters data index) (number of interfaces data index) (interface y coordinates data index) (y coordinates index data index) (sign of bottom boundary) (total number of possible interfaces per realization) (number of runs)
+	
+	Saves the number of interfaces and the y position of each interface at the end of each run.
+
+	(total number of possible interfaces) is used in determining how much memory to allocate,
+	since the number of interfaces varies from realization to realization.
+
+	(sign of bottom boundary) should be set to `-1' if the bottom boundary is fixed at -1
+	or `1' if the bottom boundary is fixed at +1.
+
+	(y coordinates index data index) gives the offset into the y coordinates data index
+	for each realization.
+	
+void cmd_fm();
+
+	command-line arguments: (save index) (parameters data index) (final magnetization data index) (number of runs)
+	
+	Saves the magnetization at the end of each run.
+	
+void cmd_fmabs();
+
+	command-line arguments: (save index) (parameters data index) (final magnetization data index) (number of runs)
+	
+	Saves the absolute value of the magnetization at the end of each run.
+	
+void cmd_fperc();
+
+	command-line arguments: (save index) (parameters data index) (number of clusters data index) (number of stripes data index) (winding a data index) (winding b data index) (number of runs)
+	
+	Saves the number of clusters and the percolation of all clusters at the end of each run.
+
+	`number of stripes' is the number of stripes.
+	For example, if there is one black (1,1) diagonal stripe (and hence one white (1,1) diagonal stripe),
+	then `number of stripes' is set to `1'.
+	If there are two black (1,1) diagonal stripes (and hence two white (1,1) diagonal stripes),
+	then `number of stripes' is set to `2'.
+
+	If `number of stripes' equals `0', then the system is in a cross topology (equivalently, no peroclation).
+
+void cmd_fs();
+
+	command-line arguments: (save index) (parameters data index) (final steps data index) (number of runs)
+	
+	Saves the steps at the end of each run.
+	
+void cmd_ft();
+
+	command-line arguments: (save index) (parameters data index) (final time data index) (number of runs)
+	
+	Saves the time at the end of each run.
+	
+void cmd_incT();
+
+	command-line arguments: (save index) (parameters data index) (increment)
+	
+	Increments the temperature by `increment' after each run.
+	This function does not save any data.
+
+void cmd_svseed();
+
+        command-line arguments: (save index) (random number generator data index) (data index low) (data index high) (number of runs)
+
+        Saves the random number seed used for each run (data_index_high*2^32+data_index_low = seed).
+
+// set
+
+void cmd_af();
+
+	command-line arguments: (parameters data index) (sign of first spin in lattice)
+		
+	Sets the initial lattice in an antiferromagnetic state.
+
+void cmd_blkinit();
+
+        command-line arguments: (parameters data index) (linear size of each block)
+
+	Sets the initial lattice with alternating blocks of up and down spins.
+
+void cmd_block();
+
+	command-line arguments: (parameters data index) (spin) (x start) (x end) (y start) (y end) (z start) (z end)
+	
+	Sets the initial lattice with a block of spins of the specified sign.
+	
+void cmd_blockrev();
+
+	command-line arguments: (parameters data index) (x start) (x end) (y start) (y end) (z start) (z end)
+	
+	Reverses the sign of each spin within the specified coordinates.
+
+	For calculations that are sensitive to the energy of the system, such as
+	determining if a system has reached a slab state, `blockrev' should be used
+	instead of `block' for preparing the initial spin configuration.
+	
+void cmd_cpcur();
+	
+	command-line arguments: (parameters data index)
+
+	Copies the current spin configuration into the initial spin configuration.
+
+void cmd_cpinit();
+	
+	command-line arguments: (parameters data index)
+
+	Copies the initial spin configuration into the current spin configuration.
+
+void cmd_diag1();
+
+	command-line arguments: (parameters data index)
+		
+	Sets the initial lattice with a stripe that winds around the lattice once.
+
+void cmd_diag2();
+
+	command-line arguments: (parameters data index)
+		
+	Sets the initial lattice with a stripe that winds around the lattice twice.
+
+void cmd_reset();
+
+	command-line arguments: (parameters data index) (maximum number of steps) (maximum time) (temperature) (bias field)
+	
+	Resets parameters of the interface.
+	
+	The simulation runs until either the maximum number of allowed steps have elapsed or until the maximum
+	allowed time has elapsed.
+	If the maximum number of steps is specified, then the maximum time must be set to zero.
+	If the maximum time is specified, then the maximum number of steps must be set to zero.
+	
+void cmd_rnglcg();
+
+	command-line arguments: (random number generator data index)
+	
+	Creates a data structure for the linear congruential random number generator.
+
+void cmd_rngmt();
+
+	command-line arguments: (random number generator data index)
+	
+	Creates a data structure for the Mersenne twister random number generator.
+
+void cmd_seed();
+
+	command-line arguments: (random number generator data index) (seed low) (seed high)
+	
+	Sets (seed_high*2^32+seed_low) as the seed of the random number generator.
+	
+void cmd_setdiag();
+
+	command-line arguments: (parameters data index) (random number generator data index) (xlen) (ylen) (maximum number of steps) (maximum time) (temperature) (bias field) (J2)
+	
+	Creates a data structure for the 3d Ising model evolution with periodic boundaries and sets parameters of the interface.
+	
+	The simulation runs until either the maximum number of allowed steps have elapsed or until the maximum
+	allowed time has elapsed.
+	If the maximum number of steps is specified, then the maximum time must be set to zero.
+	If the maximum time is specified, then the maximum number of steps must be set to zero.
+
+	`J2' is the second-nearest-neighbor (diagonal) interaction.
+	It is set to a negative value for ferromagnetic diagonal interaction.
+	
+void cmd_setfixper();
+
+	command-line arguments: (parameters data index) (random number generator data index) (xlen) (ylen) (maximum number of steps) (maximum time) (temperature) (bias field)
+	
+	Creates a data structure for the 3d Ising model evolution with free boundaries and sets parameters of the interface.
+	
+	The simulation runs until either the maximum number of allowed steps have elapsed or until the maximum
+	allowed time has elapsed.
+	If the maximum number of steps is specified, then the maximum time must be set to zero.
+	If the maximum time is specified, then the maximum number of steps must be set to zero.
+	
+void cmd_setperper();
+
+	command-line arguments: (parameters data index) (random number generator data index) (xlen) (ylen) (maximum number of steps) (maximum time) (temperature) (bias field)
+	
+	Creates a data structure for the 3d Ising model evolution with periodic boundaries and sets parameters of the interface.
+	
+	The simulation runs until either the maximum number of allowed steps have elapsed or until the maximum
+	allowed time has elapsed.
+	If the maximum number of steps is specified, then the maximum time must be set to zero.
+	If the maximum time is specified, then the maximum number of steps must be set to zero.
+	
+void cmd_settsc();
+
+	command-line arguments: (random number generator data index)
+	
+	Uses the processor's time stamp as the 64-bit random number seed.
+
+// step
+
+void cmd_energy();
+
+	command-line arguments: (step index) (parameters data index) (trigger data index) (energy data index)
+	
+	Saves the energy at each trigger event.
+	
+void cmd_equstop();
+	
+	command-line arguments: (step index) (parameters data index) (temperature data index) (magnetization data index) (energy data index) (equilibrium data index) (temperature index) (magnetization or energy) (number of runs)
+
+	Stops a realization if the magnetization or energy approaches its equilibrium value.
+	
+	If (magnetization or energy) is set to `0', then the simulation stops when the absolute value of
+	the magnetization equals or increases above its equilibrium value.
+	If (magnetization or energy) is set to `1', then the simulation stops when the energy equals or
+	drops below its equilibrium value.
+	
+	`temperature index' specifies the value of temperature.  For example, `0' is T=0,
+	`1' is the lowest nonzero value of temperature, and so on.
+
+	If the system reaches equilibrium before the maximum allowed time or the maximum allowed number of
+	steps has elapsed, then (equilibrium data index) is set to `1'.  Otherwise, it is set to `0'.
+
+void cmd_equtable();
+	
+	command-line arguments: (step index) (parameters data index) (temperature data index) (magnetization data index) (magnetization width data index) (energy data index) (energy width data index) (slab state) (minimum steps) (minimum time) (number of runs)
+
+	Saves the equilibrium magnetization and energy for T between 0 and T_c.
+	
+	If `slab state' is set to `1', then the steady-state magnetization and energy for a slab state
+	are being computed.
+
+	If `slab state' is set to `0', then the equilibrium magnetization and energy are being computed.
+
+	The equilibrium magnetization and energy are not recorded until steps > (minimum steps) and time > (minimum time).
+
+void cmd_flips();
+
+	command-line arguments: (step index) (parameters data index) (flips data index) (maximum number of steps)
+	
+	Saves the history of the lattice.
+	
+void cmd_mag();
+
+	command-line arguments: (step index) (parameters data index) (trigger data index) (magnetization data index)
+	
+	Saves the magnetization at each trigger event.
+	
+void cmd_movie1();
+
+	command-line arguments: (step index) (parameters data index) (spin) (interval) (end frame)
+	
+	Saves a movie.
+	
+void cmd_movie2();
+
+	command-line arguments: (step index) (parameters data index) (starting time) (ending time) (last frame from previous run) (spin) (interval)
+	
+	Saves a movie.
+	
+void cmd_movie3();
+
+	command-line arguments: (step index) (parameters data index) (starting time) (ending time) (last frame from previous run) (spin) (interval)
+	
+	Saves a movie.
+	
+void cmd_slabstop();
+	
+	command-line arguments: (step index) (parameters data index) (temperature data index) (magnetization data index) (energy data index) (slab state data index) (temperature index) (extra time) (terminate) (number of runs)
+
+	When the energy drops below the slab state energy, then a test is done to see if
+	the system has collapsed into a slab state.  All spin clusters in the system are
+	labeled.  If the two largest clusters in the system each percolate in exactly
+	two directions, then the system is stuck in a slab state, and (slab state data
+	index) is set to `1'.  Otherwise, (slab state data index) is set to `0'.
+
+	`temperature index' specifies the value of temperature.  For example, `0' is T=0,
+	`1' is the lowest nonzero value of temperature, and so on.
+
+	If `terminate' is set to `2', then the simulation checks after every L^2 time steps
+	to see if the system is in a slab state, until either the system reaches a slab
+	state or the system reaches equilibrium.
+	If `terminate' is set to `1', then the simulation stops after the slab state test
+	regardless of whether or not the system is in a slab state.
+	If `terminate' is set to `0', then the simulation stops only if a slab state
+	is found.
+
+void cmd_stopdiag();
+
+	command-line arguments: (step index) (parameters data index) (trigger data index) (starting time)
+	
+	Stops the simulation if it is stuck in a diagonal stripe state that either winds
+	once around the torus in both directions or winds twice around the torus in one
+	direction and once in the other direction.
+
+	The test is done at each trigger event, but no tests are done until (starting time)
+	has elapsed.
+	
+void cmd_swstop();
+	
+	command-line arguments: (step index) (parameters data index) (switch data index) (sign of magnetization) (fraction) (number of runs)
+
+	Stops the simulation when the magnetization switches from one equilibrium value
+	to the other.
+
+	If (sign of magnetization) is `1', then the simulation stops when the magnetization
+	increases above (fraction)*(total magnetization).
+
+	If (sign of magnetization) is `-1', then the simulation stops when the magnetization
+	decreases below (fraction)*(total magnetization).
+
+void cmd_time();
+
+	command-line arguments: (step index) (parameters data index) (trigger data index) (time data index)
+	
+	Saves the time at each trigger event.
+	
+void cmd_trigs();
+
+	command-line arguments: (step index) (parameters data index) (trigger data index) (steps per interval) (progress)
+	
+	Sets up a trigger data structure that signals to other functions after every interval of
+	`steps per interval' steps has elapsed.
+	
+	If `progress' is set to `1', then the progress of the simulation is output to the screen.
+	If `progress' is set to `0', then there are no status messages output to the screen.
+
+	All trigger functions should be inserted before other functions in the step array.
+	
+void cmd_trigt();
+
+	command-line arguments: (step index) (parameters data index) (trigger data index) (time per interval) (progress)
+	
+	Sets up a trigger data structure that signals to other functions after every interval of
+	`time per interval' time has elapsed.
+	
+	If `progress' is set to `1', then the progress of the simulation is output to the screen.
+	If `progress' is set to `0', then there are no status messages output to the screen.
+	
+	All trigger functions should be inserted before other functions in the step array.
+
+void cmd_trigtonce();
+
+	command-line arguments: (step index) (parameters data index) (trigger data index) (time) (number of runs)
+	
+	Sets up a trigger data structure that signals to other functions when the time equals
+	the specified value.
+	
+	All trigger functions should be inserted before other functions in the step array.
+	
