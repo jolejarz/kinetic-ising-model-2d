@@ -4,7 +4,7 @@ This program simulates the two-dimensional kinetic Ising model at zero temperatu
 
 # License and Copyright
 
-All files in this repository are released under the [MIT License](https://mit-license.org) as per the included [license](https://github.com/jolejarz/kinetic-ising-model-2d/blob/main/LICENSE.txt) file.
+All files in this repository are released under the [2-Clause BSD License](https://opensource.org/license/bsd-2-clause) as per the included [license](https://github.com/jolejarz/kinetic-ising-model-2d/blob/main/LICENSE.txt) file.
 
 # Reference
 
